@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+
+  php:
+    image: redlink-api-php-lib:1.0.0
+    container_name: redlink-api-php-lib
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PHP_IDE_CONFIG="serverName=docker-redlinkapi"
+      - XDEBUG_CONFIG=remote_host=host.docker.internal
+    volumes:
+      - .:/var/www/html:rw

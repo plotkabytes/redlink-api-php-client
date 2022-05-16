@@ -1,0 +1,10 @@
+.phpunit.result.cache
+.php-cs-fixer.cache
+composer.lock
+phpstan.neon
+phpunit.xml
+vendor
+tests/test.php
+tests/Integration
+tests/Integration/*
+.idea

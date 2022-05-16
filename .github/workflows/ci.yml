@@ -1,0 +1,49 @@
+name: CI
+
+on: [push]
+
+jobs:
+  run:
+
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.2', '7.3', '8.0', '8.1']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          ssh_key: ${{ secrets.ssh_key }}
+          ssh_key_pub: ${{ secrets.ssh_key_pub }}
+          php_version: ${{ matrix.php-versions }}
+          command: update
+
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@v3
+        with:
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml.dist
+          args: --coverage-text
+
+      - name: PHPStan
+        uses: php-actions/phpstan@v3
+        with:
+          configuration: phpstan.neon.dist
+
+      - name: Run psalm
+        run: ./vendor/bin/psalm.phar -c psalm.xml
+
+      #- name: Auto format check # php-cs-fixer
+      #  run: composer auto-format
