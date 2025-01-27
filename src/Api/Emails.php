@@ -249,7 +249,6 @@ class Emails extends AbstractApi
                     ->setRequired('email')
                     ->setDefined('name')
                     ->setAllowedTypes('name', 'string')
-                    ->setRequired('name')
                     ->setDefined('messageId')
                     ->setAllowedTypes('messageId', 'string')
                     ->setRequired('messageId')
