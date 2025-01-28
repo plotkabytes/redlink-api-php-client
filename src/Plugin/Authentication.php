@@ -72,7 +72,7 @@ final class Authentication implements Plugin
         $request = $request->withHeader('Authorization', $this->apikey);
 
         if (null != $this->appkey) {
-            if (ctype_space($this->appkey)) {
+            if (!ctype_space($this->appkey)) {
                 $request = $request->withHeader('Application-Key', $this->appkey);
             }
         }
