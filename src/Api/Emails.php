@@ -258,7 +258,8 @@ class Emails extends AbstractApi
                 $elements = array_map([$subResolver, 'resolve'], $elements);
 
                 return true;
-            });
+            })
+          ->setDefined('attachments');
 
         $optionsResolver->resolve($data);
 
