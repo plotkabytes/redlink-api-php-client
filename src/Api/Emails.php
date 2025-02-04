@@ -249,7 +249,6 @@ class Emails extends AbstractApi
                     ->setRequired('email')
                     ->setDefined('name')
                     ->setAllowedTypes('name', 'string')
-                    ->setRequired('name')
                     ->setDefined('messageId')
                     ->setAllowedTypes('messageId', 'string')
                     ->setRequired('messageId')
@@ -259,7 +258,8 @@ class Emails extends AbstractApi
                 $elements = array_map([$subResolver, 'resolve'], $elements);
 
                 return true;
-            });
+            })
+          ->setDefined('attachments');
 
         $optionsResolver->resolve($data);
 
